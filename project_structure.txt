@@ -1,0 +1,41 @@
+├── ./
+│   ├── .DS_Store
+│   ├── requirements.txt
+│   ├── alembic.ini
+│   ├── project_structure.txt
+│   ├── README.md
+│   ├── .gitignore
+│   ├── .env
+│   ├── pipeline.pkl
+│   ├── main.py
+│   ├── app/
+│   │   ├── controller.py
+│   │   ├── schemas.py
+│   │   ├── model_loader.py
+│   │   ├── inference.py
+│   │   ├── router.py
+│   │   ├── helpers.py
+│   │   ├── database/
+│   │   │   ├── db.py
+│   │   │   ├── models_db.py
+│   │   │   ├── settings.py
+│   │   │   ├── rough.py
+│   │   ├── user/
+│   │   │   ├── controller.py
+│   │   │   ├── models.py
+│   │   │   ├── dtos.py
+│   │   │   ├── router.py
+│   ├── models/
+│   │   ├── .DS_Store
+│   │   ├── preprocessing.py
+│   │   ├── pipeline.pkl
+│   │   ├── train.py
+│   │   ├── training_data_loader.py
+│   │   ├── dataset/
+│   │   │   ├── house_data.csv
+│   ├── alembic/
+│   │   ├── script.py.mako
+│   │   ├── env.py
+│   │   ├── README
+│   │   ├── versions/
+│   │   │   ├── 93646ebc5816_add_user_id_to_tasks.py
