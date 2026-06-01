@@ -1,0 +1,27 @@
+# Virtual Environment
+
+venv/
+
+env/
+
+.venv/
+
+# Python cache
+
+__pycache__/
+
+*.py[cod]
+
+*$py.class
+
+
+build/
+
+dist/
+
+*.egg-info/
+
+# Environment variables
+
+.env
+
