@@ -1,48 +1,68 @@
 # 🏠 House Price Prediction API
 
-A secure, production-style FastAPI application that combines Machine Learning-based house price prediction with user authentication, authorization, database management, and RESTful APIs.
+A production-oriented Machine Learning API built using FastAPI, PostgreSQL, SQLAlchemy, Alembic, JWT Authentication, Docker, and AWS EC2.
 
-The project demonstrates practical backend engineering concepts including JWT Authentication, Password Hashing, SQLAlchemy ORM, Alembic migrations, Machine Learning model deployment, and protected API routes.
-
----
+The application enables authenticated users to generate, store, manage, and retrieve house price predictions while demonstrating modern backend engineering practices such as containerization, database migrations, secure authentication, environment-based configuration, and cloud deployment.
 
 ## 🚀 Features
 
 ### 🔐 Authentication & Authorization
 
-- User Registration
-- User Login
-- JWT Token-Based Authentication
-- Protected Routes
-- User Authorization
-- Password Hashing using bcrypt
-- Secure Credential Validation
-- Stateless Authentication
+* User Registration
+* User Login
+* JWT Token-Based Authentication
+* Protected Routes
+* Password Hashing
+* User Authorization
+* Secure Credential Validation
+* Stateless Authentication
 
 ### 🏠 House Price Prediction
 
-- Machine Learning House Price Prediction
-- Real-Time Prediction API
-- Trained ML Model Deployment
-- Input Validation using Pydantic
-- Prediction Result Storage
+* Machine Learning-Based House Price Prediction
+* Real-Time Prediction API
+* Scikit-Learn Model Deployment
+* Input Validation using Pydantic
+* Prediction History Storage
+* User-Specific Predictions
 
 ### 🗄 Database Management
 
-- SQLAlchemy ORM
-- Database Relationships
-- User-Specific Predictions
-- Alembic Database Migrations
-- Environment-Based Configuration
+* PostgreSQL Database
+* SQLAlchemy ORM
+* Database Relationships
+* Alembic Migrations
+* Environment-Based Configuration
+* Persistent Database Storage
 
-### ⚡ Backend Development
+### 🐳 Containerization & Deployment
 
-- FastAPI REST APIs
-- Modular Architecture
-- Dependency Injection
-- Request & Response Validation
-- Interactive Swagger Documentation
-- ReDoc API Documentation
+* Dockerized Application
+* Docker Compose Orchestration
+* Containerized PostgreSQL
+* Environment Variable Management
+* AWS EC2 Deployment
+* Persistent Volumes
+
+---
+
+# 🏗 Architecture
+
+```text
+                    AWS EC2
+                        │
+                Docker Compose
+                        │
+        ┌───────────────┴───────────────┐
+        │                               │
+ ┌───────────────┐              ┌───────────────┐
+ │ FastAPI API   │─────────────▶│ PostgreSQL    │
+ │ Container     │              │ Container     │
+ └───────────────┘              └───────────────┘
+                                        │
+                                        ▼
+                              Persistent Volume
+```
 
 ---
 
@@ -50,33 +70,54 @@ The project demonstrates practical backend engineering concepts including JWT Au
 
 ## Backend
 
-- Python
-- FastAPI
-- Pydantic
+* Python
+* FastAPI
+* Pydantic
 
 ## Database
 
-- SQLAlchemy
-- SQLite
-- Alembic
+* PostgreSQL
+* SQLAlchemy
+* Alembic
 
 ## Authentication & Security
 
-- JWT (JSON Web Tokens)
-- Passlib
-- bcrypt
+* JWT
+* Password Hashing
+* Secure Authentication
 
 ## Machine Learning
 
-- Scikit-Learn
-- Pandas
-- NumPy
+* Scikit-Learn
+* Pandas
+* NumPy
+* Joblib
 
-## Development Tools
+## DevOps & Deployment
 
-- Git
-- GitHub
-- Virtual Environment
+* Docker
+* Docker Compose
+* AWS EC2
+* Git
+* GitHub
+
+---
+
+# ⚙️ Environment Variables
+
+Create a `.env` file in the project root.
+
+```env
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+
+DB_CONNECTION=
+
+SECRET_KEY=
+ALGORITHM=HS256
+EXP_TIME=30
+```
 
 ---
 
@@ -86,104 +127,72 @@ The project demonstrates practical backend engineering concepts including JWT Au
 House_price_prediction_model/
 │
 ├── app/
-│   ├── controller.py
-│   ├── schemas.py
-│   ├── model_loader.py
-│   ├── inference.py
-│   ├── router.py
-│   ├── helpers.py
-│   │
-│   ├── database/
-│   │   ├── db.py
-│   │   ├── models_db.py
-│   │   ├── settings.py
-│   │   └── rough.py
-│   │
-│   └── user/
-│       ├── controller.py
-│       ├── models.py
-│       ├── dtos.py
-│       └── router.py
-│
 ├── models/
-│   ├── preprocessing.py
-│   ├── train.py
-│   ├── training_data_loader.py
-│   ├── pipeline.pkl
-│   └── dataset/
-│       └── house_data.csv
-│
 ├── alembic/
-│   ├── env.py
-│   ├── script.py.mako
-│   └── versions/
-│
+├── Dockerfile
+├── docker-compose.yml
+├── .dockerignore
+├── .env.example
 ├── main.py
-├── pipeline.pkl
-├── alembic.ini
 ├── requirements.txt
-├── .gitignore
 └── README.md
 ```
 
 ---
 
-# ⚙️ Installation
+# 🚀 Running with Docker
 
 ## Clone Repository
 
 ```bash
 git clone git@github.com:arpitsharmaji/House_price_prediction_model.git
+
 cd House_price_prediction_model
 ```
 
-## Create Virtual Environment
+## Configure Environment
 
 ```bash
-python -m venv venv
+cp .env.example .env
 ```
 
-## Activate Virtual Environment
+Update the values in `.env`.
 
-### macOS/Linux
+## Start Services
 
 ```bash
-source venv/bin/activate
+docker compose up -d
 ```
 
-### Windows
+## Verify Containers
 
 ```bash
-venv\Scripts\activate
+docker ps
 ```
 
-## Install Dependencies
+## Apply Database Migrations
 
 ```bash
-pip install -r requirements.txt
+docker compose exec api alembic upgrade head
 ```
 
 ---
 
-# ▶️ Run the Application
+# 🌐 Access Application
 
-```bash
-uvicorn main:app --reload
-```
-
-Application URL:
+FastAPI:
 
 ```text
 http://localhost:8000
 ```
 
-Swagger Documentation:
+Swagger UI:
 
 ```text
 http://localhost:8000/docs
 ```
 
-ReDoc Documentation:
+ReDoc:
 
 ```text
 http://localhost:8000/redoc
@@ -191,47 +200,29 @@ http://localhost:8000/redoc
 
 ---
 
-# 🔐 Authentication Workflow
+# 🔐 Authentication Endpoints
 
 ## Register User
-
-**Endpoint**
 
 ```http
 POST /user/register
 ```
 
-Creates a new user account and securely stores a hashed password.
-
----
-
 ## Login User
-
-**Endpoint**
 
 ```http
 POST /user/login_user
 ```
 
-Validates user credentials and generates a JWT access token.
-
----
-
 ## Verify Authentication
-
-**Endpoint**
 
 ```http
 GET /user/is_auth
 ```
 
-Verifies whether the provided JWT token is valid and returns authenticated user information.
-
 ---
 
-# 🏠 House Price Prediction APIs
-
-All task routes require authentication.
+# 🏠 Prediction Endpoints
 
 ## Create Prediction
 
@@ -239,19 +230,11 @@ All task routes require authentication.
 POST /tasks/create
 ```
 
-Creates a new house price prediction record.
-
----
-
 ## Get All Predictions
 
 ```http
 GET /tasks/all_tasks
 ```
-
-Returns all predictions associated with the authenticated user.
-
----
 
 ## Get Prediction By ID
 
@@ -259,19 +242,11 @@ Returns all predictions associated with the authenticated user.
 GET /tasks/one_task/{task_id}
 ```
 
-Returns a single prediction record.
-
----
-
 ## Update Prediction
 
 ```http
 PUT /tasks/update_task/{task_id}
 ```
-
-Updates an existing prediction.
-
----
 
 ## Delete Prediction
 
@@ -279,41 +254,35 @@ Updates an existing prediction.
 DELETE /tasks/delete_task/{task_id}
 ```
 
-Deletes a prediction record.
-
 ---
 
 # 🤖 Machine Learning Workflow
 
-The application uses a trained Scikit-Learn pipeline to predict house prices based on input features.
-
-### Workflow
-
 1. User submits house details.
-2. Request is validated using Pydantic schemas.
+2. Request is validated using Pydantic.
 3. Features are preprocessed.
-4. Trained ML pipeline loads.
+4. Trained Scikit-Learn pipeline is loaded.
 5. Prediction is generated.
-6. Prediction is stored in the database.
-7. Response is returned to the client.
+6. Prediction is stored in PostgreSQL.
+7. Response is returned to the user.
 
 ---
 
-# 🗄 Database Migration
+# 🗄 Database Migrations
 
-### Apply Migrations
+Apply migrations:
 
 ```bash
 alembic upgrade head
 ```
 
-### Create Migration
+Create migration:
 
 ```bash
 alembic revision --autogenerate -m "migration_name"
 ```
 
-### Downgrade Migration
+Rollback migration:
 
 ```bash
 alembic downgrade -1
@@ -321,49 +290,37 @@ alembic downgrade -1
 
 ---
 
-# 🔒 Security Features
+# 📚 Key Concepts Demonstrated
 
-- JWT Authentication
-- Password Hashing with bcrypt
-- Protected Endpoints
-- User Authorization
-- Request Validation
-- Secure Credential Storage
-- Stateless Authentication
-- Dependency-Based Authentication Middleware
-
----
-
-# 📚 Learning Outcomes
-
-This project demonstrates practical experience with:
-
-- FastAPI
-- REST API Development
-- SQLAlchemy ORM
-- Alembic Migrations
-- JWT Authentication
-- Password Hashing
-- Authorization
-- Machine Learning Model Deployment
-- Backend Architecture
-- Dependency Injection
-- API Security
-- Git & GitHub
+* FastAPI Development
+* REST API Design
+* SQLAlchemy ORM
+* Alembic Migrations
+* PostgreSQL
+* JWT Authentication
+* Password Hashing
+* Dependency Injection
+* Machine Learning Model Deployment
+* Docker
+* Docker Compose
+* Container Networking
+* Persistent Volumes
+* Environment Management
+* AWS EC2 Deployment
 
 ---
 
 # 🔮 Future Improvements
 
-- Docker Containerization
-- GitHub Actions CI/CD
-- PostgreSQL Integration
-- Redis Caching
-- Role-Based Access Control (RBAC)
-- MLflow Integration
-- Cloud Deployment (AWS/GCP/Azure)
-- Monitoring & Logging
-- Automated Model Retraining
+* GitHub Actions CI/CD
+* Nginx Reverse Proxy
+* HTTPS & SSL
+* Redis Caching
+* Role-Based Access Control (RBAC)
+* MLflow Integration
+* AWS RDS Migration
+* Monitoring & Logging
+* Kubernetes Deployment
 
 ---
 
@@ -379,4 +336,5 @@ GitHub: https://github.com/arpitsharmaji
 
 # ⭐ Support
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
+If you found this project useful, consider giving it a star on GitHub.
+
